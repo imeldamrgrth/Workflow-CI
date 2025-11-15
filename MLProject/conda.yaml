@@ -5,10 +5,10 @@ channels:
   - defaults
 
 dependencies:
-  - python=3.8  # Sesuaikan dengan versi Python yang kamu butuhkan
+  - python=3.8  # Versi Python yang lebih stabil, sesuaikan dengan yang kamu butuhkan (misalnya 3.8 atau 3.9)
   - pip
   - pip:
-      - mlflow  # MLflow dan dependensi lain yang dibutuhkan
-      - scikit-learn  # Contoh tambahan, sesuaikan dengan kebutuhanmu
+      - mlflow
+      - scikit-learn
       - pandas
-  
+  # Tambahkan dependensi lainnya jika diperlukan

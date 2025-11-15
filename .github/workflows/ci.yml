@@ -13,30 +13,30 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2  # Checkout repository ke runner
 
-    # Step untuk Setup Miniconda
+    # Setup Miniconda
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v1
       with:
-        conda-version: "4.10.3"  # Bisa coba versi yang lebih stabil
-        python-version: "3.8"  # Sesuaikan dengan versi Python yang dibutuhkan
-        environment-file: MLProject/conda.yaml  # Pastikan file conda.yaml ada di repo
+        conda-version: "4.9.2"  # Gunakan versi conda yang stabil
+        python-version: "3.8"   # Gunakan versi python 3.8 untuk menghindari masalah dengan versi terbaru
 
-    # Step untuk Membuat Environment dari conda.yaml
+    # Membuat environment dari conda.yaml
     - name: Create conda environment from conda.yaml
       run: |
-        conda env create -f MLProject/conda.yaml  # Membuat environment berdasarkan conda.yaml
-        conda activate mlflow-project  # Mengaktifkan environment mlflow-project
+        conda env create -f conda.yaml  # Pastikan file conda.yaml ada di repo
+        conda activate mlflow-project  # Mengaktifkan environment
 
-    # Step untuk Menjalankan MLflow
+    # Debugging - Memeriksa kondisi conda dan Python
+    - name: Debugging - Check conda info
+      run: |
+        conda info  # Memeriksa info tentang conda (termasuk path dan environment)
+        conda list  # Melihat daftar paket yang terinstal di environment
+        python --version  # Memastikan Python yang digunakan adalah versi yang benar
+        which python  # Memeriksa path ke python yang sedang digunakan
+        echo $PATH  # Memeriksa variabel PATH dan memastikan conda ada di PATH
+
+    # Jalankan eksperimen MLflow
     - name: Run MLflow experiment
       run: |
         conda activate mlflow-project  # Pastikan environment aktif
         mlflow run . --experiment-name mlflow-experiment
-
-    - name: Debugging - Check conda info
-      run: |
-        echo $PATH
-        conda info
-        conda list
-        which conda
-
