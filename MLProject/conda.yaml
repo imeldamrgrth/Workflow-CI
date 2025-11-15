@@ -1,0 +1,11 @@
+name: mlflow-project
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - scikit-learn
+  - mlflow
+  - pandas
+  - pip
+  - pip:
+      - git+https://github.com/mlflow/mlflow.git
