@@ -4,7 +4,7 @@ channels:
 dependencies:
   - python=3.8
   - scikit-learn
+  - mlflow=2.5.1  # Tentukan versi MLflow yang lebih spesifik
   - pip
   - pip:
-      - mlflow  # Install mlflow via pip instead of conda
       - git+https://github.com/mlflow/mlflow.git
