@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 import pandas as pd
 
 # Muat data dan lakukan pra-pemrosesan
-data = pd.read_csv("heart_preprocessed.csv")  # Ganti dengan path dataset Anda
+data = pd.read_csv("heart_processed.csv")  # Ganti dengan path dataset Anda
 X = data.drop("target", axis=1)
 y = data["target"]
 
