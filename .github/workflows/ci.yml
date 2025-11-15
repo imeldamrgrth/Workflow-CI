@@ -3,10 +3,10 @@ name: CI for MLFlow Project
 on:
   push:
     branches:
-      - main
+      - main  # Workflow akan dijalankan ketika ada push ke branch main
   pull_request:
     branches:
-      - main
+      - main  # Workflow akan dijalankan saat ada PR ke branch main
 
 jobs:
   build:
@@ -24,7 +24,6 @@ jobs:
     - name: Install dependencies
       run: |
         conda env create -f MLProject/conda.yaml
-        conda activate mlflow-project   # Aktifkan environment conda
 
     - name: Run MLflow Project
       run: |
