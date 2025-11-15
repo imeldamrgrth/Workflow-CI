@@ -1,14 +1,10 @@
-name: mlflow-project  # Nama environment
-
+name: mlflow-ci
 channels:
-  - conda-forge
   - defaults
-
 dependencies:
-  - python=3.8  # Versi Python yang lebih stabil, sesuaikan dengan yang kamu butuhkan (misalnya 3.8 atau 3.9)
+  - python=3.8
+  - scikit-learn
+  - mlflow
   - pip
   - pip:
-      - mlflow
-      - scikit-learn
-      - pandas
-  # Tambahkan dependensi lainnya jika diperlukan
+      - git+https://github.com/mlflow/mlflow.git

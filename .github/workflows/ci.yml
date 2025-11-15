@@ -1,42 +1,40 @@
-name: CI for MLflow Project
+name: MLflow CI Workflow
 
 on:
   push:
     branches:
-      - main  # Workflow ini dijalankan saat ada push ke main branch
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Gunakan ubuntu untuk menjalankan workflow
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2  # Checkout repository ke runner
+    # Check out the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    # Setup Miniconda
-    - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v1
+    # Set up Python
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
       with:
-        conda-version: "4.9.2"  # Gunakan versi conda yang stabil
-        python-version: "3.8"   # Gunakan versi python 3.8 untuk menghindari masalah dengan versi terbaru
+        python-version: 3.8
 
-    # Membuat environment dari conda.yaml
-    - name: Create conda environment from conda.yaml
+    # Install dependencies from conda.yaml
+    - name: Install dependencies
       run: |
-        conda env create -f conda.yaml  # Pastikan file conda.yaml ada di repo
-        conda activate mlflow-project  # Mengaktifkan environment
+        conda env create -f MLProject/conda.yaml
+        conda activate mlflow-ci
 
-    # Debugging - Memeriksa kondisi conda dan Python
-    - name: Debugging - Check conda info
+    # Install MLflow and other dependencies
+    - name: Install MLflow
       run: |
-        conda info  # Memeriksa info tentang conda (termasuk path dan environment)
-        conda list  # Melihat daftar paket yang terinstal di environment
-        python --version  # Memastikan Python yang digunakan adalah versi yang benar
-        which python  # Memeriksa path ke python yang sedang digunakan
-        echo $PATH  # Memeriksa variabel PATH dan memastikan conda ada di PATH
+        pip install mlflow
 
-    # Jalankan eksperimen MLflow
-    - name: Run MLflow experiment
+    # Run MLflow project
+    - name: Run MLflow Project
       run: |
-        conda activate mlflow-project  # Pastikan environment aktif
-        mlflow run . --experiment-name mlflow-experiment
+        mlflow run .
