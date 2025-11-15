@@ -1,5 +1,6 @@
 name: mlflow-project
 channels:
+  - conda-forge   # Menambahkan channel conda-forge
   - defaults
 dependencies:
   - python=3.8
