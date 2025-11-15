@@ -1,32 +1,33 @@
-name: CI for MLFlow Project
+name: CI for MLflow Project
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # Workflow ini dijalankan saat ada push ke main branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Gunakan ubuntu untuk menjalankan workflow
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Checkout repository ke runner
 
+    # Step untuk Setup Miniconda
     - name: Set up Miniconda
-      run: |
-        # Install Miniconda
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        bash miniconda.sh -b -f -p $HOME/miniconda
-        export PATH="$HOME/miniconda/bin:$PATH"
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        conda-version: "latest"  # Versi conda terbaru
+        python-version: "3.8"    # Versi python yang digunakan
 
-        # Setup conda environment
-        conda init bash
-        conda env create -f MLProject/conda.yaml
-
-    - name: Run MLflow Project
+    # Step untuk Membuat Environment dari conda.yaml
+    - name: Create conda environment from conda.yaml
       run: |
-        conda run -n mlflow-project mlflow run . --experiment-name mlflow-experiment
+        conda env create -f conda.yaml  # Membuat environment berdasarkan conda.yaml
+        conda activate mlflow-project  # Mengaktifkan environment mlflow-project
+
+    # Step untuk Menjalankan MLflow
+    - name: Run MLflow experiment
+      run: |
+        conda activate mlflow-project  # Pastikan environment aktif
+        mlflow run . --experiment-name mlflow-experiment

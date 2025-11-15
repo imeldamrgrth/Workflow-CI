@@ -1,12 +1,14 @@
-name: mlflow-project
+name: mlflow-project  # Nama environment
+
 channels:
-  - conda-forge   # Menambahkan channel conda-forge
+  - conda-forge
   - defaults
+
 dependencies:
-  - python=3.8
-  - scikit-learn
-  - pandas
-  - mlflow=2.7.0  # Gunakan versi stabil mlflow
+  - python=3.8  # Sesuaikan dengan versi Python yang kamu butuhkan
   - pip
   - pip:
-      - gunicorn
+      - mlflow  # MLflow dan dependensi lain yang dibutuhkan
+      - scikit-learn  # Contoh tambahan, sesuaikan dengan kebutuhanmu
+      - pandas
+  
