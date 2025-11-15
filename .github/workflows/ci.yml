@@ -3,10 +3,10 @@ name: CI for MLFlow Project
 on:
   push:
     branches:
-      - main  # Workflow akan dijalankan ketika ada push ke branch main
+      - main
   pull_request:
     branches:
-      - main  # Workflow akan dijalankan saat ada PR ke branch main
+      - main
 
 jobs:
   build:
@@ -16,16 +16,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Install dependencies
+    - name: Set up Miniconda
       run: |
+        # Install Miniconda
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        bash miniconda.sh -b -f -p $HOME/miniconda
+        export PATH="$HOME/miniconda/bin:$PATH"
 
+        # Setup conda environment
+        conda init bash
         conda env create -f MLProject/conda.yaml
 
     - name: Run MLflow Project
       run: |
-        mlflow run . --experiment-name mlflow-experiment
+        conda run -n mlflow-project mlflow run . --experiment-name mlflow-experiment
