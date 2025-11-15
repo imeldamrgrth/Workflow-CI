@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Check out the repository
+    # Checkout repository
     - name: Checkout Repository
       uses: actions/checkout@v2
 
@@ -28,9 +28,14 @@ jobs:
       run: |
         conda env create -f MLProject/conda.yaml
         conda activate mlflow-ci
-        pip install mlflow  # Install mlflow via pip after environment is created
+        conda list  # Verify installed packages
 
     # Run MLflow project
     - name: Run MLflow Project
       run: |
         mlflow run .
+
+    - name: Clean Conda and Pip Cache
+      run: |
+        conda clean --all --yes
+        pip cache purge

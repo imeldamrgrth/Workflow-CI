@@ -1,10 +1,11 @@
 name: mlflow-ci
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.8
   - scikit-learn
+  - mlflow=1.28.0  # Versi lebih lama yang lebih kompatibel dengan conda
   - pip
   - pip:
-      - mlflow  # Install mlflow via pip instead of conda
       - git+https://github.com/mlflow/mlflow.git
