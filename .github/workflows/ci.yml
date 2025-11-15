@@ -19,12 +19,12 @@ jobs:
       with:
         conda-version: "4.10.3"  # Bisa coba versi yang lebih stabil
         python-version: "3.8"  # Sesuaikan dengan versi Python yang dibutuhkan
-        environment-file: conda.yaml  # Pastikan file conda.yaml ada di repo
-        
+        environment-file: MLProject/conda.yaml  # Pastikan file conda.yaml ada di repo
+
     # Step untuk Membuat Environment dari conda.yaml
     - name: Create conda environment from conda.yaml
       run: |
-        conda env create -f conda.yaml  # Membuat environment berdasarkan conda.yaml
+        conda env create -f MLProject/conda.yaml  # Membuat environment berdasarkan conda.yaml
         conda activate mlflow-project  # Mengaktifkan environment mlflow-project
 
     # Step untuk Menjalankan MLflow
