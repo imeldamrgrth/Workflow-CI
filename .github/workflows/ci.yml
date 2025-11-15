@@ -28,11 +28,7 @@ jobs:
       run: |
         conda env create -f MLProject/conda.yaml
         conda activate mlflow-ci
-
-    # Install MLflow and other dependencies
-    - name: Install MLflow
-      run: |
-        pip install mlflow
+        pip install mlflow  # Install mlflow via pip after environment is created
 
     # Run MLflow project
     - name: Run MLflow Project
