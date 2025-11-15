@@ -15,11 +15,12 @@ jobs:
 
     # Step untuk Setup Miniconda
     - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v2
+      uses: conda-incubator/setup-miniconda@v1
       with:
-        conda-version: "latest"  # Versi conda terbaru
-        python-version: "3.8"    # Versi python yang digunakan
-
+        conda-version: "4.10.3"  # Bisa coba versi yang lebih stabil
+        python-version: "3.8"  # Sesuaikan dengan versi Python yang dibutuhkan
+        environment-file: conda.yaml  # Pastikan file conda.yaml ada di repo
+        
     # Step untuk Membuat Environment dari conda.yaml
     - name: Create conda environment from conda.yaml
       run: |
@@ -31,3 +32,11 @@ jobs:
       run: |
         conda activate mlflow-project  # Pastikan environment aktif
         mlflow run . --experiment-name mlflow-experiment
+
+    - name: Debugging - Check conda info
+      run: |
+        echo $PATH
+        conda info
+        conda list
+        which conda
+
