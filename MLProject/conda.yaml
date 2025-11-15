@@ -1,11 +1,13 @@
-name: mlflow-ci
+name: mlflow-ci  # Nama environment
 channels:
   - defaults
-  - conda-forge
 dependencies:
-  - python=3.8
-  - scikit-learn
-  - mlflow=1.28.0  # Versi lebih lama yang lebih kompatibel dengan conda
-  - pip
+  - python=3.10  # Sesuaikan dengan versi Python yang Anda inginkan
+  - pip  # Install pip di environment conda
   - pip:
-      - git+https://github.com/mlflow/mlflow.git
+      - mlflow  # Install MLflow menggunakan pip
+      - pandas  # Install pandas untuk data manipulation
+      - numpy   # Install numpy untuk operasi numerik
+      - scikit-learn  # Install scikit-learn untuk machine learning
+      - matplotlib  # Install matplotlib untuk plotting
+      - seaborn  # Install seaborn untuk visualisasi data

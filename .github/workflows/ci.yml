@@ -1,41 +1,35 @@
-name: MLflow CI Workflow
+name: Retrain ML Model
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  build:
+  retrain:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout repository
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # Set up Python
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      # Set up Python
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-    # Install dependencies from conda.yaml
-    - name: Install dependencies
-      run: |
-        conda env create -f MLProject/conda.yaml
-        conda activate mlflow-ci
-        conda list  # Verify installed packages
+      # Install dependencies using pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mlflow pandas numpy scikit-learn matplotlib seaborn
 
-    # Run MLflow project
-    - name: Run MLflow Project
-      run: |
-        mlflow run .
-
-    - name: Clean Conda and Pip Cache
-      run: |
-        conda clean --all --yes
-        pip cache purge
+      # Run MLflow project (retraining the model)
+      - name: Run MLflow Project
+        run: |
+          cd MLProject  # Masuk ke folder project MLflow
+          echo "Running MLflow project retraining..."
+          mlflow run . --env-manager=local -P data_path=namadataset_preprocessing/housing_preprocessed.csv
